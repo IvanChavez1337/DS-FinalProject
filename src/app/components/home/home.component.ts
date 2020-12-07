@@ -8,14 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    variable: any[]=[];
-    variable2: any;
+    paises: any[]=[];
+    global: any;
     recuperados: number;
+    opcion: any;
   constructor(private dataProviders: DataProvidersService) {
    this.dataProviders.getCovidData().subscribe((res: any) => {console.log(res)
-    this.variable2 =(res['Global']);
-    this.recuperados = this.variable2['TotalRecovered']; //Evitamos error de tipo en consola
-    console.log(this.variable2);
+    this.paises=res['Countries'];
+    this.global =(res['Global']);
+    console.log(this.paises);
+    this.recuperados = this.global['TotalRecovered']; //Evitamos error de tipo en consola
+    console.log(this.global);
   });
    }
 
