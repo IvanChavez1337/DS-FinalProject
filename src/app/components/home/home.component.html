@@ -6,12 +6,17 @@
         <h5 class="card-title">Datos sobre un país en específico</h5>
         <p class="card-text">Aquí podrás consultar información sobre los casos de covid en un país en específico.</p>
         <div class="form-group">
-          <b><label for="countries">Selecciona un país</label></b>
-          <select id="countries" name="countries" [(ngModel)]="paises" class="form-control"> 
-            <option *ngFor="let pais of paises"  [value]="opcion"> 
+          <form (submit)="consultar()">
+            <label for="countries"><b>Selecciona un país</b></label>
+          <select id="countries" name="countries"  class="form-control" [(ngModel)]="opcion"> 
+            <option disabled >Selecciona una opción</option>
+            <option *ngFor="let pais of paises" [ngValue]="pais"> 
                 {{pais.Country}}
             </option>
           </select>
+          <hr>
+          <button type="submit" class="btn btn-primary" >Consultar</button>
+        </form>
         </div>
       </div>
       <div class="card-footer">
