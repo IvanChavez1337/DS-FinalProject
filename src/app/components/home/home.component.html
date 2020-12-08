@@ -15,7 +15,7 @@
             </option>
           </select>
           <hr>
-          <button type="submit" class="btn btn-primary" >Consultar</button>
+          <button type="submit" class="btn btn-primary" href="#datos_pais" data-toggle="modal" >Consultar</button>
         </form>
         </div>
       </div>
@@ -28,7 +28,7 @@
       <div class="card-body">
         <h5 class="card-title">Datos Globales</h5>
         <p class="card-text">Información al día de los casos de covid en todo el mundo</p>
-        <div>
+        <div class="center-block text-center">
           <p class="card-text"><b>Total de Casos: </b> {{g_casostotales}}</p>
           <p class="card-text"><b>Total de Muertes: </b> {{g_muertestotales}}</p>
           <p class="card-text"><b>Total de Recuperados: </b> {{g_rectotales}}</p>
@@ -55,3 +55,28 @@
     </div>
   </div>
 
+  <div id="datos_pais" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title"><b>Llave de accesso </b></h2>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">&nbsp; ¿Estás seguro? </h4>
+            </div>
+            <div class="modal-body center-block text-center">
+              <p class="card-text"><b>País: </b> {{nombrepais}}</p>
+              <p class="card-text"><b>Total de Casos: </b> {{casostotales}}</p>
+              <p class="card-text"><b>Total de Muertes: </b> {{muertestotales}}</p>
+              <p class="card-text"><b>Total de Recuperados: </b> {{rectotales}}</p>
+              <p class="card-text"><b>Total de Casos Nuevos: </b> {{nuevosconf}}</p>
+              <p class="card-text"><b>Total de Nuevas Muertes: </b> {{nuevasmuertes}}</p>
+              <p class="card-text"><b>Total de Nuevos Recuperados: </b> {{nuevosrec}}</p>
+            </div>
+            <hr>
+            <p class="card-text"><b>Fecha: </b> {{fecha_aux}}</p>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Regresar</button>
+            </div>
+        </div>
+    </div>
+  </div>
