@@ -1,5 +1,6 @@
 import { DataProvidersService } from './../../services/data-providers.service';
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 
 @Component({
@@ -12,7 +13,8 @@ export class HomeComponent implements OnInit {
     global: any;
     recuperados: number;
     opcion: any;
-
+  fecha: Date;
+  fecha_aux: string;
       //Variables consultas por pais
     nombrepais: any;
     casostotales:any;
@@ -22,13 +24,34 @@ export class HomeComponent implements OnInit {
     nuevasmuertes:any;
     nuevosrec:any;
 
+    //Variables Datos Globales
+    g_casostotales:any;
+    g_muertestotales:any;
+    g_rectotales:any;
+    g_nuevosconf:any;
+    g_nuevasmuertes:any;
+    g_nuevosrec:any;
+
+
+
   constructor(private dataProviders: DataProvidersService) {
    this.dataProviders.getCovidData().subscribe((res: any) => {console.log(res)
     this.paises=res['Countries'];
     this.global =(res['Global']);
     console.log(this.paises);
     this.recuperados = this.global['TotalRecovered']; //Evitamos error de tipo en consola
+    this.fecha = new Date(res['Date']);
     console.log(this.global);
+    this.fecha_aux = moment(this.fecha).format('YYYY-MM-DD');
+    console.log("fecha auxiliar "+this.fecha_aux);
+
+    this.g_casostotales= this.global.TotalConfirmed;
+    this.g_muertestotales=this.global.TotalDeaths;
+    this.g_rectotales= this.global.TotalRecovered;
+    this.g_nuevosconf= this.global.NewConfirmed;
+    this.g_nuevasmuertes= this.global.NewDeaths;
+    this.g_nuevosrec=this.global.NewRecovered;
+
   });
    }
 
