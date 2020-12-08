@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
     opcion: any;
   fecha: Date;
   fecha_aux: string;
+  registroglob:any = {};
       //Variables consultas por pais
     nombrepais: any;
     casostotales:any;
@@ -46,12 +47,19 @@ export class HomeComponent implements OnInit {
     this.fecha_aux = moment(this.fecha).format('YYYY-MM-DD');
     console.log("fecha auxiliar "+this.fecha_aux);
 
-    this.g_casostotales= this.global.TotalConfirmed;
-    this.g_muertestotales=this.global.TotalDeaths;
-    this.g_rectotales= this.global.TotalRecovered;
-    this.g_nuevosconf= this.global.NewConfirmed;
-    this.g_nuevasmuertes= this.global.NewDeaths;
-    this.g_nuevosrec=this.global.NewRecovered;
+    
+    this.registroglob['casostotales'] = this.global.TotalConfirmed;
+    this.registroglob['muertestotales'] = this.global.TotalDeaths;
+    this.registroglob['rectotales'] = this.global.TotalRecovered;;
+    this.registroglob['nuevosconf'] = this.global.NewConfirmed;
+    this.registroglob['nuevasmuertes'] = this.global.NewDeaths;
+    this.registroglob['nuevosrec'] = this.global.NewRecovered;
+    this.registroglob['fecha'] = this.fecha_aux;
+    this.dbservice.insertarRegGlob(this.registroglob,this.fecha_aux).then(res => {
+      console.log("Registro global insertado");
+    }).catch(error =>{
+      console.log(error);
+    })
 
   });
    }
@@ -77,7 +85,8 @@ export class HomeComponent implements OnInit {
       registro['nuevosrec'] = this.nuevosrec;
       registro['fecha'] = this.fecha_aux;
       console.log(registro);
-      this.dbservice.insertarReg(registro).then(res => {
+      let id = this.nombrepais + " - " + this.fecha_aux;
+      this.dbservice.insertarReg(registro,id).then(res => {
         console.log("Insertado correctamente");
       }).catch(error => {
         console.log(error);
