@@ -60,7 +60,9 @@ export class HomeComponent implements OnInit {
     }).catch(error =>{
       console.log(error);
     })
-
+  this.dbservice.fireservice.collection('paises').valueChanges().subscribe(val => {
+    console.log(val);
+  });
   });
    }
 
@@ -76,6 +78,7 @@ export class HomeComponent implements OnInit {
       this.nuevosrec = this.opcion.NewRecovered;
       
       let registro = {};
+      registro['id'] = this.nombrepais + " - " + this.fecha_aux;
       registro['pais'] = this.nombrepais;
       registro['casostotales'] = this.casostotales;
       registro['muertestotales'] = this.muertestotales;
@@ -91,6 +94,8 @@ export class HomeComponent implements OnInit {
       }).catch(error => {
         console.log(error);
       });
+
+
     }
      
    }

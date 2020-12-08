@@ -13,4 +13,5 @@ export class DbService {
   insertarRegGlob(registro,fecha){
     return this.fireservice.collection('global').doc(fecha).set(registro);
   }
+
 }
