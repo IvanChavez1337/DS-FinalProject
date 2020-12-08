@@ -76,8 +76,12 @@ export class HomeComponent implements OnInit {
       registro['nuevasmuertes'] = this.nuevasmuertes;
       registro['nuevosrec'] = this.nuevosrec;
       registro['fecha'] = this.fecha_aux;
-      
-      this.dbservice.insertarReg(registro);
+      console.log(registro);
+      this.dbservice.insertarReg(registro).then(res => {
+        console.log("Insertado correctamente");
+      }).catch(error => {
+        console.log(error);
+      });
     }
      
    }
