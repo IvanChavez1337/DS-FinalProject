@@ -6,7 +6,7 @@
         <h5 class="card-title">Datos sobre un país en específico</h5>
         <p class="card-text">Aquí podrás consultar información sobre los casos de covid en un país en específico.</p>
         <div class="form-group">
-          <form (submit)="consultar()">
+          <form (submit)="insertar()">
             <label for="countries"><b>Selecciona un país</b></label>
           <select id="countries" name="countries"  class="form-control" [(ngModel)]="opcion"> 
             <option disabled >Selecciona una opción</option>
@@ -42,6 +42,19 @@
       <div class="card-body">
         <h5 class="card-title">Consultas históricas</h5>
         <p class="card-text">Aquí podrás ver las consultas hechas para un país en específico en fechas anteriores, además de los casos globales ocurridos en dicha fecha.</p>
+        <div class="form-group">
+          <form (submit)="consultaHistorica()">
+            <label for="countries"><b>Selecciona un registro</b></label>
+          <select id="countries" name="countries"  class="form-control" [(ngModel)]="opcionHistorica"> 
+            <option disabled >Selecciona una opción</option>
+            <option *ngFor="let registro of datos" [ngValue]="registro"> 
+                {{registro.id}}
+            </option>
+          </select>
+          <hr>
+          <button type="submit" class="btn btn-primary" href="#datos_historicos" data-toggle="modal" >Consultar</button>
+        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -55,16 +68,42 @@
                 <h4 class="modal-title">&nbsp;</h4>
             </div>
             <div class="modal-body center-block text-center">
-              <p class="card-text"><b>País: </b> {{nombrepais}}</p>
-              <p class="card-text"><b>Total de Casos: </b> {{casostotales}}</p>
-              <p class="card-text"><b>Total de Muertes: </b> {{muertestotales}}</p>
-              <p class="card-text"><b>Total de Recuperados: </b> {{rectotales}}</p>
-              <p class="card-text"><b>Total de Casos Nuevos: </b> {{nuevosconf}}</p>
-              <p class="card-text"><b>Total de Nuevas Muertes: </b> {{nuevasmuertes}}</p>
-              <p class="card-text"><b>Total de Nuevos Recuperados: </b> {{nuevosrec}}</p>
+              <p class="card-text"><b>País: </b> {{opcion.Country}}</p>
+              <p class="card-text"><b>Total de Casos: </b> {{opcion.TotalConfirmed}}</p>
+              <p class="card-text"><b>Total de Muertes: </b> {{opcion.TotalDeaths}}</p>
+              <p class="card-text"><b>Total de Recuperados: </b> {{opcion.TotalRecovered}}</p>
+              <p class="card-text"><b>Total de Casos Nuevos: </b> {{opcion.NewConfirmed}}</p>
+              <p class="card-text"><b>Total de Nuevas Muertes: </b> {{opcion.NewDeaths}}</p>
+              <p class="card-text"><b>Total de Nuevos Recuperados: </b> {{opcion.NewRecovered}}</p>
             </div>
             <hr>
             <p class="card-text"><b>Fecha: </b> {{fecha_aux}}</p>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Regresar</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div id="datos_historicos" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title text-center"><b>Datos Registrados en Fechas Anteriores </b></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">&nbsp;</h4>
+            </div>
+            <div class="modal-body center-block text-center">
+              <p class="card-text"><b>País: </b> {{opcionHistorica.pais}}</p>
+              <p class="card-text"><b>Total de Casos: </b> {{opcionHistorica.casostotales}}</p>
+              <p class="card-text"><b>Total de Muertes: </b> {{opcionHistorica.muertestotales}}</p>
+              <p class="card-text"><b>Total de Recuperados: </b> {{opcionHistorica.rectotales}}</p>
+              <p class="card-text"><b>Total de Casos Nuevos: </b> {{opcionHistorica.nuevosconf}}</p>
+              <p class="card-text"><b>Total de Nuevas Muertes: </b> {{opcionHistorica.nuevasmuertes}}</p>
+              <p class="card-text"><b>Total de Nuevos Recuperados: </b> {{opcionHistorica.nuevosrec}}</p>
+            </div>
+            <hr>
+            <p class="card-text"><b>Fecha del Registro: </b> {{opcionHistorica.fecha}}</p>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal">Regresar</button>
             </div>
