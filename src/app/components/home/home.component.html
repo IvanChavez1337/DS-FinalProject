@@ -6,7 +6,7 @@
         <h5 class="card-title">Datos sobre un país en específico</h5>
         <p class="card-text">Aquí podrás consultar información sobre los casos de covid en un país en específico.</p>
         <div class="form-group">
-          <form (submit)="insertar()">
+          <form (submit)="consultar()">
             <label for="countries"><b>Selecciona un país</b></label>
           <select id="countries" name="countries"  class="form-control" [(ngModel)]="opcion"> 
             <option disabled >Selecciona una opción</option>
@@ -68,13 +68,13 @@
                 <h4 class="modal-title">&nbsp;</h4>
             </div>
             <div class="modal-body center-block text-center">
-              <p class="card-text"><b>País: </b> {{opcion.Country}}</p>
-              <p class="card-text"><b>Total de Casos: </b> {{opcion.TotalConfirmed}}</p>
-              <p class="card-text"><b>Total de Muertes: </b> {{opcion.TotalDeaths}}</p>
-              <p class="card-text"><b>Total de Recuperados: </b> {{opcion.TotalRecovered}}</p>
-              <p class="card-text"><b>Total de Casos Nuevos: </b> {{opcion.NewConfirmed}}</p>
-              <p class="card-text"><b>Total de Nuevas Muertes: </b> {{opcion.NewDeaths}}</p>
-              <p class="card-text"><b>Total de Nuevos Recuperados: </b> {{opcion.NewRecovered}}</p>
+              <p class="card-text"><b>País: </b> {{nombrepais}}</p>
+              <p class="card-text"><b>Total de Casos: </b> {{casostotales}}</p>
+              <p class="card-text"><b>Total de Muertes: </b> {{muertestotales}}</p>
+              <p class="card-text"><b>Total de Recuperados: </b> {{rectotales}}</p>
+              <p class="card-text"><b>Total de Casos Nuevos: </b> {{nuevosconf}}</p>
+              <p class="card-text"><b>Total de Nuevas Muertes: </b> {{nuevasmuertes}}</p>
+              <p class="card-text"><b>Total de Nuevos Recuperados: </b> {{nuevosrec}}</p>
             </div>
             <hr>
             <p class="card-text"><b>Fecha: </b> {{fecha_aux}}</p>
@@ -89,21 +89,21 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h3 class="modal-title text-center"><b>Datos Registrados en Fechas Anteriores </b></h3>
+              <h3 class="modal-title text-center"><b>Datos Registrados de Fechas Anteriores </b></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">&nbsp;</h4>
             </div>
             <div class="modal-body center-block text-center">
-              <p class="card-text"><b>País: </b> {{opcionHistorica.pais}}</p>
-              <p class="card-text"><b>Total de Casos: </b> {{opcionHistorica.casostotales}}</p>
-              <p class="card-text"><b>Total de Muertes: </b> {{opcionHistorica.muertestotales}}</p>
-              <p class="card-text"><b>Total de Recuperados: </b> {{opcionHistorica.rectotales}}</p>
-              <p class="card-text"><b>Total de Casos Nuevos: </b> {{opcionHistorica.nuevosconf}}</p>
-              <p class="card-text"><b>Total de Nuevas Muertes: </b> {{opcionHistorica.nuevasmuertes}}</p>
-              <p class="card-text"><b>Total de Nuevos Recuperados: </b> {{opcionHistorica.nuevosrec}}</p>
+              <p class="card-text"><b>País: </b> {{reg_nombrepais}}</p>
+              <p class="card-text"><b>Total de Casos: </b> {{reg_casostotales}}</p>
+              <p class="card-text"><b>Total de Muertes: </b> {{reg_muertestotales}}</p>
+              <p class="card-text"><b>Total de Recuperados: </b> {{reg_rectotales}}</p>
+              <p class="card-text"><b>Total de Casos Nuevos: </b> {{reg_nuevosconf}}</p>
+              <p class="card-text"><b>Total de Nuevas Muertes: </b> {{reg_nuevasmuertes}}</p>
+              <p class="card-text"><b>Total de Nuevos Recuperados: </b> {{reg_nuevosrec}}</p>
             </div>
             <hr>
-            <p class="card-text"><b>Fecha del Registro: </b> {{opcionHistorica.fecha}}</p>
+            <p class="card-text"><b>Fecha del Registro: </b> {{reg_fecha}}</p>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal">Regresar</button>
             </div>

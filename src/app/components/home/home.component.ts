@@ -17,6 +17,24 @@ export class HomeComponent implements OnInit {
   fecha: Date;
   fecha_aux: string;
   registroglob:any = {};
+      //Variables consultas por pais
+    nombrepais: any;
+    casostotales:any;
+    muertestotales:any;
+    rectotales:any;
+    nuevosconf:any;
+    nuevasmuertes:any;
+    nuevosrec:any;
+
+    //Variables de los registros historicos
+    reg_nombrepais: any;
+    reg_casostotales:any;
+    reg_muertestotales:any;
+    reg_rectotales:any;
+    reg_nuevosconf:any;
+    reg_nuevasmuertes:any;
+    reg_nuevosrec:any;
+    reg_fecha: any;
 
     //Variables datos historicos
       datos: any[] =[];
@@ -56,23 +74,29 @@ export class HomeComponent implements OnInit {
   
    }
 
-   insertar(){
+   consultar(){
     if(this.opcion!=null||this.opcion!=undefined){
       console.log(this.opcion);
-
+      this.nombrepais = this.opcion.Country;
+      this.casostotales = this.opcion.TotalConfirmed;
+      this.muertestotales = this.opcion.TotalDeaths;
+      this.rectotales = this.opcion.TotalRecovered;
+      this.nuevosconf = this.opcion.NewConfirmed;
+      this.nuevasmuertes = this.opcion.NewDeaths;
+      this.nuevosrec = this.opcion.NewRecovered;
       
       let registro = {};
-      registro['id'] = this.opcion.Country + " - " + this.fecha_aux;
-      registro['pais'] = this.opcion.Country;
-      registro['casostotales'] = this.opcion.TotalConfirmed;
-      registro['muertestotales'] = this.opcion.TotalDeaths;
-      registro['rectotales'] = this.opcion.TotalRecovered;
-      registro['nuevosconf'] = this.opcion.NewConfirmed;
-      registro['nuevasmuertes'] = this.opcion.NewDeaths;
-      registro['nuevosrec'] = this.opcion.NewRecovered;
+      registro['id'] = this.nombrepais + " - " + this.fecha_aux;
+      registro['pais'] = this.nombrepais;
+      registro['casostotales'] = this.casostotales;
+      registro['muertestotales'] = this.muertestotales;
+      registro['rectotales'] = this.rectotales;
+      registro['nuevosconf'] = this.nuevosconf;
+      registro['nuevasmuertes'] = this.nuevasmuertes;
+      registro['nuevosrec'] = this.nuevosrec;
       registro['fecha'] = this.fecha_aux;
       console.log(registro);
-      let id = this.opcion.Country + " - " + this.fecha_aux;
+      let id = this.nombrepais + " - " + this.fecha_aux;
       this.dbservice.insertarReg(registro,id).then(res => {
         console.log("Insertado correctamente");
       }).catch(error => {
@@ -86,6 +110,15 @@ export class HomeComponent implements OnInit {
    consultaHistorica(){
      if(this.opcionHistorica!=null||this.opcionHistorica!=undefined){
        console.log(this.opcionHistorica);
+       this.reg_nombrepais = this.opcionHistorica.pais;
+       this.reg_casostotales = this.opcionHistorica.casostotales;
+       this.reg_muertestotales = this.opcionHistorica.muertestotales;
+       this.reg_rectotales = this.opcionHistorica.rectotales;
+       this.reg_nuevosconf = this.opcionHistorica.nuevosconf;
+       this.reg_nuevasmuertes = this.opcionHistorica.nuevasmuertes;
+       this.reg_nuevosrec = this.opcionHistorica.nuevosrec;
+       this.reg_fecha =  this.opcionHistorica.fecha
+
      }
    }
 
