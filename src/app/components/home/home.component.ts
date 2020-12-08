@@ -1,3 +1,4 @@
+import { DbService } from './../../services/db.service';
 import { DataProvidersService } from './../../services/data-providers.service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
@@ -34,7 +35,7 @@ export class HomeComponent implements OnInit {
 
 
 
-  constructor(private dataProviders: DataProvidersService) {
+  constructor(private dataProviders: DataProvidersService, public dbservice:DbService) {
    this.dataProviders.getCovidData().subscribe((res: any) => {console.log(res)
     this.paises=res['Countries'];
     this.global =(res['Global']);
@@ -66,6 +67,17 @@ export class HomeComponent implements OnInit {
       this.nuevasmuertes = this.opcion.NewDeaths;
       this.nuevosrec = this.opcion.NewRecovered;
       
+      let registro = {};
+      registro['pais'] = this.nombrepais;
+      registro['casostotales'] = this.casostotales;
+      registro['muertestotales'] = this.muertestotales;
+      registro['rectotales'] = this.rectotales;
+      registro['nuevosconf'] = this.nuevosconf;
+      registro['nuevasmuertes'] = this.nuevasmuertes;
+      registro['nuevosrec'] = this.nuevosrec;
+      registro['fecha'] = this.fecha_aux;
+      
+      this.dbservice.insertarReg(registro);
     }
      
    }

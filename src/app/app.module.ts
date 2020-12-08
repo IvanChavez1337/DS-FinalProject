@@ -1,3 +1,4 @@
+import { DbService } from './services/db.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DataProvidersService } from './services/data-providers.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -9,8 +10,21 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { FormsModule } from '@angular/forms';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
 
 
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCuiifyzkJIIVbaFcWYZmbOg-0_7Si5L-s",
+  authDomain: "ds-finalproject.firebaseapp.com",
+  projectId: "ds-finalproject",
+  storageBucket: "ds-finalproject.appspot.com",
+  messagingSenderId: "424468432689",
+  appId: "1:424468432689:web:4be0d042de0c9d1385d210"
+};
 
 @NgModule({
   declarations: [
@@ -22,10 +36,17 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireStorage,
+    AngularFirestore,
+    AngularFireStorageModule
   ],
   providers: [
-    DataProvidersService
+    DataProvidersService,
+    DbService,
+    AngularFirestore
   ],
   bootstrap: [AppComponent]
 })
