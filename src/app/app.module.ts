@@ -14,6 +14,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
 import { firestore } from 'firebase';
+import { NewsComponent } from './components/news/news.component';
 
 
 
@@ -32,6 +33,7 @@ const firebaseConfig = {
     AppComponent,
     NavbarComponent,
     HomeComponent,
+    NewsComponent,
     
   ],
   imports: [

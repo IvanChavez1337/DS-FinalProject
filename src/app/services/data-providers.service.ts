@@ -14,4 +14,8 @@ export class DataProvidersService {
      const url = 'https://api.covid19api.com/summary'; //Api para consultar información de Covid 19 al día
       return this.http.get(url);
    }
+   getNews(){
+     const url = 'https://newsapi.org/v2/everything?q=covid-19&language=es&apiKey=1b77fc61fea34dca9927d50349ae9431'; //Api de noticias 
+     return this.http.get(url);
+   }
 }
