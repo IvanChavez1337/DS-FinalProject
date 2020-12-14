@@ -1,1 +1,18 @@
-<p>news works!</p>
+<div class="row card-group">
+    <div class="col-6"  *ngFor="let noticia of noticias">
+        <div class="card">
+            <img class="card-img-top" src="{{noticia.urlToImage}}" alt="Card image cap">
+                <div class="card-body">
+                 <h5 class="card-title">{{noticia.title}}</h5>
+                <p class="card-text">{{noticia.description}}</p>
+                <hr>
+                <a href="{{noticia.url}}" class="btn btn-primary">Ir a la nota</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted"><b>Fuente: </b> {{noticia.source.name}}</small>&nbsp;
+                    <small class="text-muted"><b>Autor: </b> {{noticia.author}}</small>
+                    <hr>
+                    <small class="text-muted"><b>Fecha de publicacion: </b> {{noticia.publishedAt | date: "yyyy-MM-dd"}}</small>
+                  </div>
+    </div>
+</div>

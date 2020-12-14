@@ -1,3 +1,4 @@
+import { DataProvidersService } from './../../services/data-providers.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-
-  constructor() { }
+  noticias: any[]=[];
+  constructor(private dataProviders: DataProvidersService) {
+    this.dataProviders.getNews().subscribe((res:any) => {
+      console.log(res);
+      this.noticias = res['articles'];
+    })
+   }
 
   ngOnInit(): void {
   }
