@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { DbService } from './services/db.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DataProvidersService } from './services/data-providers.service';
@@ -15,6 +16,7 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestor
 import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
 import { firestore } from 'firebase';
 import { NewsComponent } from './components/news/news.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 
@@ -34,6 +36,7 @@ const firebaseConfig = {
     NavbarComponent,
     HomeComponent,
     NewsComponent,
+    LoginComponent,
     
   ],
   imports: [
@@ -48,7 +51,8 @@ const firebaseConfig = {
   providers: [
     DataProvidersService,
     DbService,
-    AngularFirestore
+    AngularFirestore,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
