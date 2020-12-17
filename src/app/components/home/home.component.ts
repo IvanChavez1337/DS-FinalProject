@@ -1,7 +1,9 @@
+import { AuthService } from './../../services/auth.service';
 import { DbService } from './../../services/db.service';
 import { DataProvidersService } from './../../services/data-providers.service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+
 
 
 @Component({
@@ -40,8 +42,13 @@ export class HomeComponent implements OnInit {
       datos: any[] =[];
       opcionHistorica: any;
 
+      //Variables usuarios 
 
-  constructor(private dataProviders: DataProvidersService, public dbservice:DbService) {
+      idUser: String;
+      user: any;
+      isLogged: boolean = false;
+
+  constructor(private dataProviders: DataProvidersService, public dbservice:DbService, private Auth: AuthService) {
    this.dataProviders.getCovidData().subscribe((res: any) => {console.log(res)
     this.paises=res['Countries'];
     this.global =(res['Global']);
@@ -65,13 +72,29 @@ export class HomeComponent implements OnInit {
       console.log("Registro global insertado");
     }).catch(error =>{
       console.log(error);
-    })
+    });
   this.dbservice.fireservice.collection('paises').valueChanges().subscribe(val => {
       this.datos = val;
      console.log(val);
   });
+  
+  this.Auth.afAuth.authState.subscribe(user =>{
+    if(user){
+      this.user = user;
+      this.Auth.isAuth().subscribe(auth => {
+        if(auth){
+          console.log("Usuario logeado en home");
+          this.isLogged = true;
+        }else{
+          console.log("Usuario no logeado");
+          this.isLogged = false;
+        }
+      });
+    }
+  });
 });
   
+
    }
 
    consultar(){
@@ -117,7 +140,7 @@ export class HomeComponent implements OnInit {
        this.reg_nuevosconf = this.opcionHistorica.nuevosconf;
        this.reg_nuevasmuertes = this.opcionHistorica.nuevasmuertes;
        this.reg_nuevosrec = this.opcionHistorica.nuevosrec;
-       this.reg_fecha =  this.opcionHistorica.fecha
+       this.reg_fecha =  this.opcionHistorica.fecha;
 
      }
    }

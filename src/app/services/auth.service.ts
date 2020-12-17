@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { auth } from 'firebase';
 import { AngularFireAuth } from '@angular/fire/auth';
-
+import { map } from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ import {switchMap} from 'rxjs/operators';
 export class AuthService {
   user$:Observable<any>;
 
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+  constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore, public router: Router) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if(user){
@@ -60,4 +60,7 @@ export class AuthService {
           console.log(error);
         }
       }
+      isAuth() {
+        return this.afAuth.authState.pipe(map(auth => auth));
+    }
 }

@@ -11,6 +11,9 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link"  routerLink="news">Noticias</a>
         </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="isLogged">
+          <a class="nav-link"  (click)="cerrarSesion()" routerLink="login">Cerrar Sesion</a>
+        </li>
       </ul>
     </div>
   </nav>

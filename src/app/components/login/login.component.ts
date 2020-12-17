@@ -8,8 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  user: any;
+  isLogged: boolean = false;
 
-  constructor(public auth: AuthService, private router:Router) { }
+  constructor(public auth: AuthService, private router:Router) { 
+    this.auth.afAuth.authState.subscribe(user =>{
+      if(user){
+        this.user = user;
+        this.auth.isAuth().subscribe(auth => {
+          if(auth){
+            console.log("Usuario logeado en home");
+            this.isLogged = true;
+            this.router.navigate(['/home']);
+          }else{
+            console.log("Usuario no logeado");
+            this.isLogged = false;
+          }
+        });
+      }
+    });
+  }
 
   ngOnInit(): void {
   }
