@@ -73,13 +73,7 @@ export class HomeComponent implements OnInit {
     }).catch(error =>{
       console.log(error);
     });
- /*  this.dbservice.fireservice.collection('paises').valueChanges().subscribe(val => {
-      this.datos = val;
-     console.log(val);
-  });*/
 
-
-  ///////////////////////////////////
   this.Auth.afAuth.authState.subscribe(user =>{
     if(user){
       this.user = user;

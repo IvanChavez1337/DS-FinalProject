@@ -15,7 +15,7 @@ export class DataProvidersService {
       return this.http.get(url);
    }
    getNews(){
-     const url = 'http://newsapi.org/v2/top-headlines?q=covid-19&country=mx&apiKey=1b77fc61fea34dca9927d50349ae9431'; //Api de noticias 
+     const url = 'https://newsapi.org/v2/everything?q=covid-19&language=es&apiKey=1b77fc61fea34dca9927d50349ae9431'; //Api de noticias 
      return this.http.get(url);
    }
 }
