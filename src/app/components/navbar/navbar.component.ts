@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,7 +11,7 @@ export class NavbarComponent implements OnInit {
 
     user: any;
     isLogged: boolean;
-  constructor(private Auth: AuthService) { 
+  constructor(private Auth: AuthService, private router: Router) { 
     this.Auth.afAuth.authState.subscribe(user => {
         if(user){
           this.user = user;
@@ -31,5 +32,8 @@ export class NavbarComponent implements OnInit {
   }
   cerrarSesion(){
     this.Auth.logout();
+    this.router.navigate(['/login']).then(()=>{
+      window.location.reload();
+    });
   }
 }
