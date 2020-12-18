@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
 
       //Variables usuarios 
 
-      idUser: String;
+      idUser: any;
       user: any;
       isLogged: boolean = false;
 
@@ -73,14 +73,21 @@ export class HomeComponent implements OnInit {
     }).catch(error =>{
       console.log(error);
     });
-  this.dbservice.fireservice.collection('paises').valueChanges().subscribe(val => {
+ /*  this.dbservice.fireservice.collection('paises').valueChanges().subscribe(val => {
       this.datos = val;
      console.log(val);
-  });
-  
+  });*/
+
+
+  ///////////////////////////////////
   this.Auth.afAuth.authState.subscribe(user =>{
     if(user){
       this.user = user;
+      this.idUser = user.uid;
+      this.dbservice.fireservice.collection('registros').doc(this.idUser).collection('paises').valueChanges().subscribe(val =>{
+        this.datos = val;
+        console.log(val);
+      });
       this.Auth.isAuth().subscribe(auth => {
         if(auth){
           console.log("Usuario logeado en home");
@@ -92,6 +99,7 @@ export class HomeComponent implements OnInit {
       });
     }
   });
+  
 });
   
 
@@ -120,7 +128,7 @@ export class HomeComponent implements OnInit {
       registro['fecha'] = this.fecha_aux;
       console.log(registro);
       let id = this.nombrepais + " - " + this.fecha_aux;
-      this.dbservice.insertarReg(registro,id).then(res => {
+      this.dbservice.insertarReg(this.idUser,registro,id).then(res => { 
         console.log("Insertado correctamente");
       }).catch(error => {
         console.log(error);

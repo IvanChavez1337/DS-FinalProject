@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { DataProvidersService } from './../../services/data-providers.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,11 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewsComponent implements OnInit {
   noticias: any[]=[];
-  constructor(private dataProviders: DataProvidersService) {
+  user: any;
+  isLogged: boolean;
+
+  constructor(private dataProviders: DataProvidersService, private Auth: AuthService) {
     this.dataProviders.getNews().subscribe((res:any) => {
       console.log(res);
       this.noticias = res['articles'];
-    })
+    });
+
+    this.Auth.afAuth.authState.subscribe(user => {
+      if(user){
+        this.user = user;
+        this.Auth.isAuth().subscribe(auth => {
+          if(auth){
+            console.log("Usuario logeado");
+            this.isLogged = true;
+          }else{
+            console.log("Usuario no logeado");
+            this.isLogged = false;
+          }
+        });
+      }
+  });
    }
 
   ngOnInit(): void {
