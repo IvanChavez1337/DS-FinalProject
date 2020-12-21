@@ -15,7 +15,7 @@ export class DataProvidersService {
       return this.http.get(url);
    }
    getNews(){
-     const url = 'http://64.225.59.121'; //Api de noticias 
+     const url = 'https://ds-finalproject-api.tk/'; //Api de noticias 
      return this.http.get(url);
    }
 }
