@@ -8,3 +8,7 @@
 .card{
     text-align: center;
 }
+
+.chart {
+    height: 400px;
+}

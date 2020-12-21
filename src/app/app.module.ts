@@ -17,7 +17,8 @@ import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/stor
 import { firestore } from 'firebase';
 import { NewsComponent } from './components/news/news.component';
 import { LoginComponent } from './components/login/login.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 
@@ -46,7 +47,9 @@ const firebaseConfig = {
     FormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     DataProvidersService,

@@ -9,13 +9,13 @@
           <form (submit)="consultar()">
             <label for="countries"><b>Selecciona un país</b></label>
           <select id="countries" name="countries"  class="form-control" [(ngModel)]="opcion"> 
-            <option disabled >Selecciona una opción</option>
+            <option disabled>Selecciona una opción</option>
             <option *ngFor="let pais of paises" [ngValue]="pais"> 
                 {{pais.Country}}
             </option>
           </select>
           <hr>
-          <button type="submit" class="btn btn-primary" href="#datos_pais" data-toggle="modal" >Consultar</button>
+          <button type="submit" class="btn btn-primary" href="#datos_pais" data-toggle="modal" [disabled]="opcion=='Selecciona una opción'" >Consultar</button>
         </form>
         </div>
       </div>
@@ -25,6 +25,13 @@
       <div class="card-body">
         <h5 class="card-title">Datos Globales</h5>
         <p class="card-text">Información al día de los casos de covid en todo el mundo</p>
+        <div class="chart">
+          <ngx-charts-pie-chart
+          [results]="multi"
+          [doughnut]="isDoughnut"
+          >
+        </ngx-charts-pie-chart>
+      </div>
         <div class="center-block text-center">
           <p class="card-text"><b>Total de Casos: </b> {{registroglob.casostotales}}</p>
           <p class="card-text"><b>Total de Muertes: </b> {{registroglob.muertestotales}}</p>
@@ -45,14 +52,14 @@
         <div class="form-group">
           <form (submit)="consultaHistorica()">
             <label for="countries"><b>Selecciona un registro</b></label>
-          <select id="countries" name="countries"  class="form-control" [(ngModel)]="opcionHistorica"> 
-            <option disabled >Selecciona una opción</option>
+          <select id="countries" name="countries" class="form-control" [(ngModel)]="opcionHistorica">
+            <option disabled>Selecciona una opción</option>
             <option *ngFor="let registro of datos" [ngValue]="registro"> 
                 {{registro.id}}
             </option>
           </select>
           <hr>
-          <button type="submit" class="btn btn-primary" href="#datos_historicos" data-toggle="modal" >Consultar</button>
+          <button type="submit" class="btn btn-primary" href="#datos_historicos" data-toggle="modal" [disabled]="opcionHistorica=='Selecciona una opción'">Consultar</button>
         </form>
         </div>
       </div>
@@ -60,15 +67,33 @@
   </div>
 
   <div id="datos_pais" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg p-5">
         <div class="modal-content">
             <div class="modal-header">
               <h3 class="modal-title text-center"><b>Últimos datos sobre Covid-19 </b></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">&nbsp;</h4>
             </div>
-            <div class="modal-body center-block text-center">
-              <p class="card-text"><b>País: </b> {{nombrepais}}</p>
+            <div class="modal-body">
+              <div class="center-block text-center p-5">
+                <p class="card-text"><b>País: </b> {{nombrepais}}</p>
+                <p class="card-text pl-3"><b>Fecha: </b> {{fecha_aux}}</p>
+              <ngx-charts-line-chart
+              [view]="view"
+              [legend]="legend"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxis]="xAxis"
+              [yAxis]="yAxis"
+              [xAxisLabel]="xAxisLabel"
+              [yAxisLabel]="yAxisLabel"
+              [timeline]="timeline"
+              [results]="pieact"
+              [legendPosition]="legendPosition"
+              >
+              </ngx-charts-line-chart>
+              </div>  
+
               <p class="card-text"><b>Total de Casos: </b> {{casostotales}}</p>
               <p class="card-text"><b>Total de Muertes: </b> {{muertestotales}}</p>
               <p class="card-text"><b>Total de Recuperados: </b> {{rectotales}}</p>
@@ -77,7 +102,7 @@
               <p class="card-text"><b>Total de Nuevos Recuperados: </b> {{nuevosrec}}</p>
             </div>
             <hr>
-            <p class="card-text"><b>Fecha: </b> {{fecha_aux}}</p>
+            
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal">Regresar</button>
             </div>
@@ -86,24 +111,55 @@
   </div>
 
   <div id="datos_historicos" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg p-5">
         <div class="modal-content">
             <div class="modal-header">
               <h3 class="modal-title text-center"><b>Datos Registrados de Fechas Anteriores </b></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">&nbsp;</h4>
             </div>
+
+            
             <div class="modal-body center-block text-center">
               <p class="card-text"><b>País: </b> {{reg_nombrepais}}</p>
+              <p class="card-text"><b>Fecha del Registro: </b> {{reg_fecha}}</p>
+              <div>
+                <ngx-charts-line-chart
+                [view]="view2"
+                [legend]="legend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxis]="xAxis"
+                [yAxis]="yAxis"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                [timeline]="timeline"
+                [results]="piehist"
+                [legendPosition]="legendPosition"
+                >
+                </ngx-charts-line-chart>
+              </div>
+
+              <h3>Casos del {{reg_fecha}}</h3>
               <p class="card-text"><b>Total de Casos: </b> {{reg_casostotales}}</p>
               <p class="card-text"><b>Total de Muertes: </b> {{reg_muertestotales}}</p>
               <p class="card-text"><b>Total de Recuperados: </b> {{reg_rectotales}}</p>
               <p class="card-text"><b>Total de Casos Nuevos: </b> {{reg_nuevosconf}}</p>
               <p class="card-text"><b>Total de Nuevas Muertes: </b> {{reg_nuevasmuertes}}</p>
               <p class="card-text"><b>Total de Nuevos Recuperados: </b> {{reg_nuevosrec}}</p>
+
+
+              <h3>Casos hoy</h3>
+              <p class="card-text"><b>Total de Casos: </b> {{casostotales}}</p>
+              <p class="card-text"><b>Total de Muertes: </b> {{muertestotales}}</p>
+              <p class="card-text"><b>Total de Recuperados: </b> {{rectotales}}</p>
+              <p class="card-text"><b>Total de Casos Nuevos: </b> {{nuevosconf}}</p>
+              <p class="card-text"><b>Total de Nuevas Muertes: </b> {{nuevasmuertes}}</p>
+              <p class="card-text"><b>Total de Nuevos Recuperados: </b> {{nuevosrec}}</p>
+
             </div>
             <hr>
-            <p class="card-text"><b>Fecha del Registro: </b> {{reg_fecha}}</p>
+            
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal">Regresar</button>
             </div>

@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-image: url("assets/images/background.jpeg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+
+.chart-legend .horizontal-legend li {
+  display: block!important;
+}
+
+.chart-legend .legend-labels{
+  width: 40%!important;
+  margin: 0 auto!important;
+  float: none!important;
+}
+
+.chart-legend .legend-label-text {
+  font-size: 1em!important;
+}

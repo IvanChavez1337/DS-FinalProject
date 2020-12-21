@@ -1,6 +1,6 @@
-<div class="row card-group" *ngIf="isLogged">
-    <div class="col-6"  *ngFor="let noticia of noticias">
-        <div class="card">
+<div class="row" *ngIf="isLogged">
+    <div class="card-columns">
+        <div class="card" *ngFor="let noticia of noticias">
             <img class="card-img-top" src="{{noticia.urlToImage}}" alt="Card image cap">
                 <div class="card-body">
                  <h5 class="card-title">{{noticia.title}}</h5>
