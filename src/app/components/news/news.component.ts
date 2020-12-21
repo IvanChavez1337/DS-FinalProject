@@ -14,7 +14,6 @@ export class NewsComponent implements OnInit {
 
   constructor(private dataProviders: DataProvidersService, private Auth: AuthService) {
     this.dataProviders.getNews().subscribe((res:any) => {
-      console.log(res);
       this.noticias = res['articles'];
     });
 
